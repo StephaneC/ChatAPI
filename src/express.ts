@@ -83,6 +83,17 @@ export class Express {
         });
         // Users handlers
         this.app
+            .post('/ping', (req, res) => {
+                res.end('pong');            
+            });
+        this.app
+            .get('/hello', (req, res) => {
+                console.log('hello ' + req.param('name', null));
+                res.end('hello ' + req.param('name', null));
+            });
+
+        // Users handlers
+        this.app
             .post('/signin', asyncMiddleware(authenticationHanlder));
         this.app
             .post('/signup', asyncMiddleware(addUserHanlder));
