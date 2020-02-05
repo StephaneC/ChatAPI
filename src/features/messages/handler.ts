@@ -6,6 +6,7 @@ export const addMessageHanlder = async (req, res) => {
     console.log('user');
     const message = req.body.message;
     const msg = await addMessage(message, user.username);
+    console.log('Message aded', msg);
     res.json({ success: true, message: msg }); 
 }
 

@@ -17,7 +17,6 @@ export const authenticationHanlder = async (req, res) => {
     }
     if (user) {
         res.json({
-            username: user.username,
             success: true,
             jwt: jwt.sign({
                 username: user.username,

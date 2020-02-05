@@ -53,8 +53,8 @@ export const getUser = async (username: string): Promise<any> => {
 export const getUsers = async (): Promise<any> => {
     var params = {
         ProjectionExpression: "username, ts, urlPhoto",
-        TableName: process.env.USERS_DB,
-        KeyConditionExpression: "#ts > :ts",
+        TableName: process.env.USERS_DB,      
+        FilterExpression: "#ts > :ts",
         ExpressionAttributeValues: {
             ':ts': Date.now()-YEAR
         }

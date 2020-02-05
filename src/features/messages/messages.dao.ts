@@ -6,21 +6,23 @@ const YEAR = 365*24*60*60*1000;
 const DB = process.env.MESSAGES_DB
 export const addMessage = async (message: string, username: string): Promise<any> => {
     console.log(`addMessages for ${username}`);
+    const msg = {
+        messages: message,
+        id: generateId(),
+        username: username,
+        done: false,
+        ts: Date.now()
+    }
     const params = {
         TableName: DB,
-        Item: {
-            messages: message,
-            id: generateId(),
-            username: username,
-            done: false,
-            ts: Date.now()
-        }
+        Item: msg
     }
 
     // write the todo to the database
     try {
         const dynamoDb = new DynamoDB.DocumentClient();
         await dynamoDb.put(params).promise();
+        return msg;
     } catch (e) {
         console.log(`Error adding message ${username}`, e);
         throw e;
@@ -50,8 +52,8 @@ export const getMessagesByUser = async (username: string): Promise<any> => {
 
 export const getMessages = async (): Promise<any> => {
     var params = {
-        TableName: process.env.USERS_DB,
-        KeyConditionExpression: "#ts > :ts",
+        TableName: DB,
+        FilterExpression: "ts > :ts",
         ExpressionAttributeValues: {
             ':ts': Date.now()-YEAR
         }
@@ -60,11 +62,11 @@ export const getMessages = async (): Promise<any> => {
     try {
         console.log({ params });
         const dynamoDb = new DynamoDB.DocumentClient();
-        const res = await dynamoDb.query(params).promise();
+        const res = await dynamoDb.scan(params).promise();
         console.log('called query');
         return res.Items as Array<TchatMessage>;
     } catch (e) {
-        console.log(`Error get users`, e);
+        console.log(`Error get messages`, e);
         throw e;
     }
 }
