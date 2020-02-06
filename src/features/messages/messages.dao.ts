@@ -7,7 +7,7 @@ const DB = process.env.MESSAGES_DB
 export const addMessage = async (message: string, username: string): Promise<any> => {
     console.log(`addMessages for ${username}`);
     const msg = {
-        messages: message,
+        message: message,
         id: generateId(),
         username: username,
         done: false,

@@ -52,9 +52,9 @@ export const getUser = async (username: string): Promise<any> => {
 
 export const getUsers = async (): Promise<any> => {
     var params = {
-        ProjectionExpression: "username, ts, urlPhoto",
-        TableName: process.env.USERS_DB,      
-        FilterExpression: "#ts > :ts",
+        TableName: process.env.USERS_DB,
+        ProjectionExpression: 'ts, username, urlPhoto',
+        FilterExpression: "ts > :ts",
         ExpressionAttributeValues: {
             ':ts': Date.now()-YEAR
         }
@@ -63,7 +63,7 @@ export const getUsers = async (): Promise<any> => {
     try {
         console.log({ params });
         const dynamoDb = new DynamoDB.DocumentClient();
-        const res = await dynamoDb.query(params).promise();
+        const res = await dynamoDb.scan(params).promise();
         console.log('called query');
         return res.Items as Array<User>;
     } catch (e) {

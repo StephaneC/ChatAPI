@@ -2,7 +2,7 @@ import express = require('express');
 import jwt from 'express-jwt';
 import * as  bodyParser from 'body-parser';
 
-import { authenticationHanlder, addUserHanlder } from './features/authentication/handler';
+import { authenticationHanlder, addUserHanlder, getUsersHanlder } from './features/authentication/handler';
 import { logError, errorHandler } from './core/ErrorsHandlers';
 import { asyncMiddleware } from './core/utils';
 import { addMessageHanlder, getMessagesHanlder, updateMessageHanlder } from './features/messages/handler';
@@ -69,7 +69,7 @@ export class Express {
         // config JWT interceptor
         this.app.use(jwtMW.unless({
             path:
-                ['/', '/signin', '/signup', '/img']
+                ['/ping', '/hello', '/signin', '/signup', '/img']
         }));
         // error handlers
         //this.app.use(methodOverride());
@@ -97,6 +97,8 @@ export class Express {
             .post('/signin', asyncMiddleware(authenticationHanlder));
         this.app
             .post('/signup', asyncMiddleware(addUserHanlder));
+        this.app
+            .get('/users', asyncMiddleware(getUsersHanlder));
 
         this.app
             .post('/messages', asyncMiddleware(addMessageHanlder));

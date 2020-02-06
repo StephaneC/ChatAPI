@@ -8,7 +8,7 @@ Let's rewrite the [ApiCesi](https://github.com/StephaneC/ApiCesi) using typescri
 * params format : `application/x-www-form-urlencoded`
 * params: 
     1. username
-    2. password
+    2. pwd
     3. urlPhoto (optionnal)
 * return 
 `{
@@ -21,7 +21,7 @@ Let's rewrite the [ApiCesi](https://github.com/StephaneC/ApiCesi) using typescri
 * params format : `application/x-www-form-urlencoded`
 * params: 
     1. username
-    2. password
+    2. pwd
 * return 
 `{
     "success": true,
@@ -39,7 +39,7 @@ Let's rewrite the [ApiCesi](https://github.com/StephaneC/ApiCesi) using typescri
 `{
     "success": true,
     "message": {
-        "messages": "first message",
+        "message": "first message",
         "id": "_8vcjckqt3",
         "username": "test",
         "done": false,
@@ -58,14 +58,14 @@ Let's rewrite the [ApiCesi](https://github.com/StephaneC/ApiCesi) using typescri
         {
             "ts": 1580889999778,
             "username": "test",
-            "messages": "first message",
+            "message": "first message",
             "id": "_eljwe9ouw",
             "done": false
         },
         {
             "ts": 1580890495479,
             "username": "test",
-            "messages": "second message",
+            "message": "second message",
             "id": "_f7awk5ycz",
             "done": false
         }

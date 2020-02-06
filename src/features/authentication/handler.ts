@@ -1,12 +1,13 @@
 import * as  jwt from 'jsonwebtoken';
 import { authenticateUser, addUser } from './services';
 import { TchatError } from '../../core/Error';
+import { getUsers } from './user.dao';
 
 export const authenticationHanlder = async (req, res) => {
     console.log(`Will try to authenticate ${req.param.username}`)
     let user;
     try {
-        user = await authenticateUser(req.body.username, req.body.password)
+        user = await authenticateUser(req.body.username, req.body.pwd)
     } catch (e) {
         res.status(500).json({
             error: {
@@ -42,7 +43,7 @@ export const addUserHanlder = async (req, res) => {
         if (!req.body.username) {
             throw new TchatError(400, 'Miss username');
         }
-        await addUser(req.body.username, req.body.password, req.body.urlPhoto);
+        await addUser(req.body.username, req.body.pwd, req.body.urlPhoto);
         res.json({
             success: true
         });
@@ -54,4 +55,9 @@ export const addUserHanlder = async (req, res) => {
             }
         });
     }
+}
+
+export const getUsersHanlder = async (req, res) => {
+    const users = await getUsers();
+    res.json({ success: true, users: users }); 
 }
