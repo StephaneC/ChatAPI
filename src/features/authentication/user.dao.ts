@@ -10,10 +10,12 @@ export const addUser = async (username: string, pwd: string, urlPhoto: string): 
         TableName: process.env.USERS_DB,
         Item: {
             username: username,
-            urlPhoto: urlPhoto,
             password: pwd,
             ts: Date.now()
         }
+    }
+    if (urlPhoto && urlPhoto.length >0) {
+        params.Item['urlPhoto'] = urlPhoto;
     }
 
     // write the todo to the database
