@@ -34,7 +34,7 @@ Let's rewrite the [ApiCesi](https://github.com/StephaneC/ApiCesi) using typescri
 * headers: `Authorization: Bearer [JWT_TOKEN]`
 * params format : `application/x-www-form-urlencoded`
 * params: 
-    1. text
+    1. message
 * return 
 `{
     "success": true,
